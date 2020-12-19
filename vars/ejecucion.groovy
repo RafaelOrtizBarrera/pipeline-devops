@@ -6,7 +6,7 @@ def call(){
     agent any
     parameters { 
       choice(name: 'TIPO_PIPELINE', choices: ['maven', 'gradle'], description: 'Determina con que herramienta se va a compilar') 
-      //string(name: 'STAGE', defaultValue: '', description: 'Seleccionar stages a ejecutar. Vacio para ejecutar todos')
+      string(name: 'STAGE', defaultValue: '', description: 'Seleccionar stages a ejecutar. Vacio para ejecutar todos')
     }
     
     stages {
@@ -15,9 +15,9 @@ def call(){
           script {
             //try {
               env.STAGE = ''
-              echo 'pipeline seleccionado ' + script
-              //def stagesReq = params.STAGE.split(";")
-              //echo 'stages ' + stagesReq 
+              echo 'pipeline seleccionado ' + params.TIPO_PIPELINE
+              def stagesReq = params.STAGE.split(";")
+              echo 'stages ' + stagesReq 
               if(params.TIPO_PIPELINE == 'maven'){
                 maven.call()
               } else {
