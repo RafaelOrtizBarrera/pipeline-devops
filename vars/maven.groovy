@@ -38,7 +38,7 @@ def call(stagesExecute){
     
 }
 
-def stageCompile(){
+/*def stageCompile(){
   stage('compile') {
     env.STAGE = 'compile'
     sh 'mvn clean compile -e'
@@ -109,6 +109,6 @@ def executeAllStage(){
   stageRun()
   stageAPI()
   stageUploadNexus()
-}
+}*/
 
 return this;
