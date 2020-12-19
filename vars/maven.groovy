@@ -7,11 +7,16 @@ def call(stagesExecute){
   'test-api': stageAPI(), 
   'nexus': stageUploadNexus()]
   if (stagesExecute.isEmpty()) {
+    println 'Se ejecutan todos los stages'
     executeAllStage()
   } else {
+    println 'Los stage a ejecutar son los siguientes ' + stagesExecute 
     listStageOrder.each { nombreStage, funcion ->
-      if(stagesExecute.contains(nombreStage)){
-        funcion()
+      stagesExecute.each{ stageExecute
+        if(nombreStage.equal(stageExecute)){
+          println 'Ejecutando stage ' + stageExecute
+          funcion()
+        }
       }
     }
 
