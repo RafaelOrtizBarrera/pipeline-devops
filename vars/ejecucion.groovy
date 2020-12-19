@@ -1,4 +1,8 @@
-pipeline {
+
+
+
+def call(){
+  pipeline {
     agent any
     parameters { choice(name: 'TIPO_PIPELINE', choices: ['maven', 'gradle'], description: 'Determina con que herramienta se va a compilar') }
     
@@ -24,4 +28,8 @@ pipeline {
         slackSend color: "danger", message: "[Rafael Ortiz][${env.JOB_NAME}][${params.TIPO_PIPELINE}] ejecución fallida en stage [${env.STAGE}]"
       }
     }
+  }
+
 }
+
+return this;
