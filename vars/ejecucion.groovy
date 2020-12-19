@@ -16,7 +16,12 @@ def call(){
             //try {
               env.STAGE = ''
               echo 'pipeline seleccionado ' + params.TIPO_PIPELINE
-              def stagesReq = params.STAGE.split(";") 
+              def stagesReq = []
+              params.STAGE.split(";").each{
+                if(!it.equals("")){
+                  stagesReq.add(it)
+                }
+              }
               echo 'stages ' + stagesReq 
               if(params.TIPO_PIPELINE == 'maven'){
                 maven.call(stagesReq)

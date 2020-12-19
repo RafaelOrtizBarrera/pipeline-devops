@@ -1,7 +1,7 @@
 def call(stagesExecute){
   def listStageOrder = ['compile', 'test', 'package', 'sonar', 'run', 'test-api', 'nexus']
   print stagesExecute.size() + ' ' + stagesExecute[0]
-  if (stagesExecute.size() == 0) {
+  if (stagesExecute.size().isEmpty()) {
     executeAllStage()
   } else {
     listStageOrder.each { println it }
