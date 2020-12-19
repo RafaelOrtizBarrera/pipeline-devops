@@ -1,23 +1,40 @@
-def call(){
+def call(stagesExecute){
 
+  executeAllStage()
+  
+}
+
+def stageCompile(){
   stage('compile') {
     env.STAGE = 'compile'
     sh 'mvn clean compile -e'
   }
+}
+
+def stageTest(){
   stage('test') {
     env.STAGE = 'test'
     sh 'mvn clean test -e'
   }
-  stage('jar') {
+}
+
+def stagePackage(){
+  stage('package') {
     env.STAGE = 'jar'
     sh 'mvn clean package -e'
   }
+}
+
+def stageSonar(){
   stage('sonar'){
     env.STAGE = 'sonar'
     withSonarQubeEnv(installationName: 'sonar-local') { // You can override the credential to be used
       sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
     }
   }
+}
+
+def stageRun(){
   stage('run'){
     env.STAGE = 'run'
     withEnv(['JENKINS_NODE_COOKIE=dontkillme']) {
@@ -27,6 +44,9 @@ def call(){
       """
     }
   }
+}
+
+def stageAPI(){
   stage('test api'){
     env.STAGE = 'test api'
     echo 'Esperando a que inicie el servidor'
@@ -38,10 +58,23 @@ def call(){
       echo response
     }
   }
+}
+
+def stageUploadNexus(){
   stage('nexus'){
     env.STAGE = 'nexus'
     nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'test-nexus-rafa', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/Users/rafael/cursos-dev/diplomado-devops/ci-cd/ejemplo-gradle/build/DevOpsUsach2020-0.0.1.jar']], mavenCoordinate: [artifactId: 'DevOpsUsach2020', groupId: 'com.devopsusach2020', packaging: 'jar', version: '0.0.1']]]
   }
+}
+
+def executeAllStage(){
+  stageCompile()
+  stageTest()
+  stagePackage()
+  stageSonar()
+  stageRun()
+  stageAPI()
+  stageUploadNexus()
 }
 
 return this;

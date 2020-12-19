@@ -1,4 +1,4 @@
-def call(){
+def call(stagesExecute){
   stage('build & test') {
     env.STAGE = 'build & test'
     sh 'gradle clean build'
