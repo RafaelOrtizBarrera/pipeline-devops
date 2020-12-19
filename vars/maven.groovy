@@ -6,6 +6,7 @@ def call(stagesExecute){
   'run': stageRun(), 
   'test-api': stageAPI(), 
   'nexus': stageUploadNexus()]
+  println 'tamaño stages: ' + stagesExecute.isEmpty() + ' ' + stagesExecute.size()
   if (stagesExecute.isEmpty()) {
     println 'Se ejecutan todos los stages'
     executeAllStage()
