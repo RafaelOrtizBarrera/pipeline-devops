@@ -11,24 +11,23 @@ def call(){
     
     stages {
       stage('Pipeline') {
-        try {
-          steps {
-              script {
-                
-                  env.STAGE = ''
-                  echo 'pipeline seleccionado ' + script;
-                  def stagesReq = params.STAGE.split(";")
-                  echo 'stages ' + stagesReq 
-                  if(params.TIPO_PIPELINE == 'maven'){
-                    maven.call()
-                  } else {
-                    gradle.call()
-                  }
+        steps {
+          script {
+            try {
+              env.STAGE = ''
+              echo 'pipeline seleccionado ' + script
+              def stagesReq = params.STAGE.split(";")
+              echo 'stages ' + stagesReq 
+              if(params.TIPO_PIPELINE == 'maven'){
+                maven.call()
+              } else {
+                gradle.call()
               }
+            }
+            catch (exc) {
+              echo 'Error al eleigit tipo pipeline ' + exc
+            }
           }
-        }
-        catch (exc) {
-          echo 'Error al eleigit tipo pipeline ' + exc
         }
       }
     }
