@@ -1,11 +1,6 @@
 def call(stagesExecute){
   def listStageOrder = ['compile': stageCompile(), 
-  'test': stageTest(), 
-  'package': stagePackage(), 
-  'sonar': stageSonar(), 
-  'run': stageRun(), 
-  'test-api': stageAPI(), 
-  'nexus': stageUploadNexus()]
+  'test': stageTest()]
   echo 'stages maven'
   listStageOrder.each { stage ->
     echo 'Stages rafa ' + stage.key
@@ -36,6 +31,13 @@ def call(stagesExecute){
 
   }*/
     
+}
+
+def stageCompile(){
+  echo 'stageCompile rafa'
+}
+def stageTest(){
+  echo 'stageTest rafa'
 }
 
 /*def stageCompile(){
