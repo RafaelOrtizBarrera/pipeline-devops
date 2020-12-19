@@ -6,16 +6,16 @@ def call(stagesExecute){
   'run': stageRun(), 
   'test-api': stageAPI(), 
   'nexus': stageUploadNexus()]
-  println 'tamaño stages: ' + stagesExecute.isEmpty() + ' ' + stagesExecute.size()
+  echo 'tamaño stages: ' + stagesExecute.isEmpty() + ' ' + stagesExecute.size()
   if (stagesExecute.isEmpty()) {
-    println 'Se ejecutan todos los stages'
+    echo 'Se ejecutan todos los stages'
     executeAllStage()
   } else {
-    println 'Los stage a ejecutar son los siguientes ' + stagesExecute 
+    echo 'Los stage a ejecutar son los siguientes ' + stagesExecute 
     listStageOrder.each { nombreStage, funcion ->
       stagesExecute.each{ stageExecute
         if(nombreStage.equal(stageExecute)){
-          println 'Ejecutando stage ' + stageExecute
+          echo 'Ejecutando stage ' + stageExecute
           funcion()
         }
       }
