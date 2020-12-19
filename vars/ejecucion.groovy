@@ -11,10 +11,11 @@ def call(){
             steps {
                 script {
                   env.STAGE = ''
-                  def script =  (params.TIPO_PIPELINE == 'maven') ? 'maven.groovy' :  'gradle.groovy';
-                  echo 'pipeline seleccionado ' + script;
-                  def tipoPipeline = load script;
-                  tipoPipeline.call();
+                  if(params.TIPO_PIPELINE == 'maven'){
+                    maven.call()
+                  } else {
+                    gradle.call()
+                  }
                 }
             }
         }
