@@ -25,8 +25,7 @@ def call(){
                     }
                   }
                   catch (exc) {
-                      echo 'Error al eleigit tipo pipeline'
-                      throw
+                      echo 'Error al eleigit tipo pipeline ' + exc
                   }
 
                   
