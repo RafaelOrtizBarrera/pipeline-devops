@@ -6,8 +6,9 @@ def call(stagesExecute){
   'run': stageRun(), 
   'test-api': stageAPI(), 
   'nexus': stageUploadNexus()]
-  listStageOrder.each { nombreStage, function ->
-    echo 'Stages rafa ' + nombreStage
+  echo 'stages maven'
+  listStageOrder.each { stage ->
+    echo 'Stages rafa ' + stage.key
 
   }
 
