@@ -11,6 +11,8 @@ def call(){
             steps {
                 script {
                   env.STAGE = ''
+                  echo 'pipeline seleccionado ' + script;
+
                   if(params.TIPO_PIPELINE == 'maven'){
                     maven.call()
                   } else {
