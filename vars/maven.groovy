@@ -1,9 +1,19 @@
 def call(stagesExecute){
-  def listStageOrder = ['compile', 'test', 'package', 'sonar', 'run', 'test-api', 'nexus']
+  def listStageOrder = ['compile': stageCompile(), 
+  'test': stageTest(), 
+  'package': stagePackage(), 
+  'sonar': stageSonar(), 
+  'run': stageRun(), 
+  'test-api': stageAPI(), 
+  'nexus': stageUploadNexus()]
   if (stagesExecute.isEmpty()) {
     executeAllStage()
   } else {
-    listStageOrder.each { println it }
+    listStageOrder.each { nombreStage, funcion ->
+      if(stagesExecute.contains(nombreStage)){
+        funcion()
+      }
+    }
 
   }
     
