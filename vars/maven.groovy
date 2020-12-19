@@ -1,4 +1,4 @@
-def call(){
+def call(stages){
 
   stage('compile') {
     env.STAGE = 'compile'
