@@ -1,4 +1,4 @@
-def call(stagesExecute){
+def call(List stagesExecute){
   def listStageOrder = ['compile', 'test', 'package', 'sonar', 'run', 'test-api', 'nexus']
   if (stagesExecute.isEmpty()) {
     executeAllStage()
