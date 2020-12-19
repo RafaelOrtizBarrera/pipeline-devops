@@ -34,10 +34,10 @@ def call(stagesExecute){
 }
 
 def stageCompile(){
-  echo 'stageCompile rafa'
+  echo 'stageCompile metodo'
 }
 def stageTest(){
-  echo 'stageTest rafa'
+  echo 'stageTest metodo'
 }
 
 /*def stageCompile(){
