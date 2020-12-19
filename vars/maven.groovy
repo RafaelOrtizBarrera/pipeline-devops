@@ -6,6 +6,18 @@ def call(stagesExecute){
   'run': stageRun(), 
   'test-api': stageAPI(), 
   'nexus': stageUploadNexus()]
+  listStageOrder.each { nombreStage, function ->
+    echo 'Stages rafa ' + nombreStage
+
+  }
+
+  /*def listStageOrder = ['compile': stageCompile(), 
+  'test': stageTest(), 
+  'package': stagePackage(), 
+  'sonar': stageSonar(), 
+  'run': stageRun(), 
+  'test-api': stageAPI(), 
+  'nexus': stageUploadNexus()]
   echo 'tamaño stages: ' + stagesExecute.isEmpty() + ' ' + stagesExecute.size()
   if (stagesExecute.isEmpty()) {
     echo 'Se ejecutan todos los stages'
@@ -21,7 +33,7 @@ def call(stagesExecute){
       }
     }
 
-  }
+  }*/
     
 }
 
