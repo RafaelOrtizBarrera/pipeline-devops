@@ -18,9 +18,9 @@ def call(){
                   def stagesReq = params.STAGE.split(";")
                   echo 'stages ' + stagesReq 
                   if(params.TIPO_PIPELINE == 'maven'){
-                    maven.call(stagesReq)
+                    maven.call()
                   } else {
-                    gradle.call(stagesReq)
+                    gradle.call()
                   }
                 }
             }
