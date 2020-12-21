@@ -14,7 +14,7 @@ def call(stagesExecute){
     echo 'Los stage a ejecutar son los siguientes ' + stagesExecute 
     listStageOrder.each { nombreStage, funcion ->
       stagesExecute.each{ stageExecute ->
-        if(nombreStage.equal(stageExecute)){
+        if(nombreStage.equals(stageExecute)){
           echo 'Ejecutando stage ' + stageExecute
           "${function}"()
         }
