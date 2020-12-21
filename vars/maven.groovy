@@ -1,19 +1,11 @@
 def call(stagesExecute){
-  def listStageOrder = ['compile': 'stageCompile()', 
-  'test': 'stageTest()']
-  echo 'stages maven'
-  listStageOrder.each { stage ->
-    echo 'Stages rafa ' + stage.key
-
-  }
-
-  /*def listStageOrder = ['compile': stageCompile(), 
-  'test': stageTest(), 
-  'package': stagePackage(), 
-  'sonar': stageSonar(), 
-  'run': stageRun(), 
-  'test-api': stageAPI(), 
-  'nexus': stageUploadNexus()]
+  def listStageOrder = ['compile': 'stageCompile', 
+  'test': 'stageTest', 
+  'package': 'stagePackage', 
+  'sonar': 'stageSonar', 
+  'run': 'stageRun', 
+  'test-api': 'stageAPI', 
+  'nexus': 'stageUploadNexus']
   echo 'tamaño stages: ' + stagesExecute.isEmpty() + ' ' + stagesExecute.size()
   if (stagesExecute.isEmpty()) {
     echo 'Se ejecutan todos los stages'
@@ -21,26 +13,19 @@ def call(stagesExecute){
   } else {
     echo 'Los stage a ejecutar son los siguientes ' + stagesExecute 
     listStageOrder.each { nombreStage, funcion ->
-      stagesExecute.each{ stageExecute
+      stagesExecute.each{ stageExecute ->
         if(nombreStage.equal(stageExecute)){
           echo 'Ejecutando stage ' + stageExecute
-          funcion()
+          "${function}"()
         }
       }
     }
 
-  }*/
+  }
     
 }
 
 def stageCompile(){
-  echo 'stageCompile metodo'
-}
-def stageTest(){
-  echo 'stageTest metodo'
-}
-
-/*def stageCompile(){
   stage('compile') {
     env.STAGE = 'compile'
     sh 'mvn clean compile -e'
@@ -111,6 +96,6 @@ def executeAllStage(){
   stageRun()
   stageAPI()
   stageUploadNexus()
-}*/
+}
 
 return this;
