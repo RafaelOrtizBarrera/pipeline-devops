@@ -12,10 +12,10 @@ def call(stagesExecute){
     executeAllStage()
   } else {
     echo 'Los stage a ejecutar son los siguientes ' + stagesExecute 
-    listStageOrder.each { nombreStage, funcion ->
+    listStageOrder.each { nombreStage, function ->
       stagesExecute.each{ stageExecute ->
         if(nombreStage.equals(stageExecute)){
-          echo 'Ejecutando stage ' + stageExecute
+          echo 'Ejecutando ' + functions
           "${function}"()
         }
       }
