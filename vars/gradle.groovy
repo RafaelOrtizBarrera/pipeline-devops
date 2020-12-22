@@ -1,17 +1,46 @@
 def call(stagesExecute){
-  stage('build & test') {
-    env.STAGE = 'build & test'
+
+  def listStageOrder = ['build': 'stageBuild', 
+  'sonar': 'stageSonar', 
+  'run': 'stageRun', 
+  'test-api': 'stageAPI', 
+  'nexus': 'stageUploadNexus']
+  if (stagesExecute.isEmpty()) {
+    echo 'Se ejecutan todos los stages'
+    executeAllStage()
+  } else {
+    echo 'Los stage a ejecutar son los siguientes ' + stagesExecute 
+    listStageOrder.each { nombreStage, function ->
+      stagesExecute.each{ stageExecute ->
+        if(nombreStage.equals(stageExecute)){
+          echo 'Ejecutando ' + function
+          "${function}"()
+        }
+      }
+    }
+
+  }
+
+}
+
+def stageBuild(){
+  stage('build') {
+    env.STAGE = 'build'
     sh 'gradle clean build'
   }
+}
+
+def stageSonar(){
   stage('sonar'){
     env.STAGE = 'sonar'
-    // corresponde a lo que se configuro en gloabal tool configuration
     def scannerHome = tool 'sonar';
-    // nombre en configuraciones generales
     withSonarQubeEnv('sonar-local') { 
       sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build"
     }
   }
+}
+
+def stageRun(){
   stage('run'){
     env.STAGE = 'run'
     withEnv(['JENKINS_NODE_COOKIE=dontkillme']) {
@@ -21,6 +50,9 @@ def call(stagesExecute){
       """
     }
   }
+}
+
+def stageAPI(){
   stage('test api'){
     env.STAGE = 'test api'
     echo 'Esperando a que inicie el servidor'
@@ -32,10 +64,21 @@ def call(stagesExecute){
       echo response
     }
   }
+}
+
+def stageUploadNexus(){
   stage('nexus'){
     env.STAGE = 'nexus'
     nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'test-nexus-rafa', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/Users/rafael/cursos-dev/diplomado-devops/ci-cd/ejemplo-gradle/build/DevOpsUsach2020-0.0.1.jar']], mavenCoordinate: [artifactId: 'DevOpsUsach2020', groupId: 'com.devopsusach2020', packaging: 'jar', version: '0.0.1']]]
   }
+}
+
+def executeAllStage(){
+  stageBuild()
+  stageSonar()
+  stageRun()
+  stageAPI()
+  stageUploadNexus()
 }
 
 return this;
