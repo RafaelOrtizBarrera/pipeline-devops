@@ -10,6 +10,8 @@ def call(){
       stage('Pipeline') {
         steps {
           script {
+            sh 'env'
+            figlet 'test'
             env.STAGE = ''
             echo 'pipeline seleccionado ' + params.TIPO_PIPELINE
             def stagesReq = []
